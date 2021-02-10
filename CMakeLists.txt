@@ -7,16 +7,19 @@
 #                                LICENSE.md
 #
 #*****************************************************************************
-
 cmake_minimum_required(VERSION 3.14)
 project(example)
+
+include(${databus_SOURCE_DIR}/build-helpers/cmake/CMakeLists.txt)
+
+#-----------------------------------------------------------------------------
 
 set(APPLICATIONS)
 
 if("${RTI_CONNEXT_SDK}" MATCHES "pro")
-    ###################################################################################################
+    #-------------------------------------------------------------------------
     # Connext Version: Professional
-    ###################################################################################################
+    #-------------------------------------------------------------------------
     set(APPLICATIONS pro_publisher)
 
     add_executable(pro_publisher
@@ -29,9 +32,9 @@ if("${RTI_CONNEXT_SDK}" MATCHES "pro")
         )
 
 elseif("${RTI_CONNEXT_SDK}" MATCHES "micro")
-    ###################################################################################################
+    #-------------------------------------------------------------------------
     # Connext Version: Micro
-    ###################################################################################################
+    #-------------------------------------------------------------------------
     set(APPLICATIONS micro_subscriber)
 
     add_executable(micro_subscriber
@@ -55,6 +58,8 @@ else()
 
 endif()
 
+#-----------------------------------------------------------------------------
+
 install(
     TARGETS ${APPLICATIONS}
     CONFIGURATIONS Debug Release
@@ -62,3 +67,5 @@ install(
     ARCHIVE DESTINATION "${INSTALL_ARCHIVE_OUTPUT_DIRECTORY}"
     LIBRARY DESTINATION "${INSTALL_LIBRARY_OUTPUT_DIRECTORY}"
     )
+
+#-----------------------------------------------------------------------------
