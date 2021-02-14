@@ -10,7 +10,9 @@
 cmake_minimum_required(VERSION 3.14)
 project(example)
 
-include(${databus_SOURCE_DIR}/build-helpers/cmake/CMakeLists.txt)
+if(NOT databus_SOURCE_DIR) # "databus" project is NOT defined in current build
+    include(${DATABUS_PROJECT_DIR}/build-helpers/cmake/init.cmake)
+endif()
 
 #-----------------------------------------------------------------------------
 
