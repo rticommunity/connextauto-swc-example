@@ -231,8 +231,9 @@ subscriber_main_w_args(DDS_Long domain_id, char *udp_intf, char *peer,
         DDS_DataReaderListener_INITIALIZER;
     struct Application *application;
 
-    application = Application_create("subscriber", "publisher", domain_id,
-            udp_intf, peer, sleep_time, count);
+    application = Application_create(
+            "Example_micro_subscriber", "Example_publisher",
+            domain_id, udp_intf, peer, sleep_time, count);
 
     if (application == NULL)
     {

@@ -210,6 +210,8 @@ Application_create(const char *local_participant_name,
     dp_qos.resource_limits.remote_reader_allocation = 8;
     dp_qos.resource_limits.remote_writer_allocation = 8;
 
+    strcpy(dp_qos.participant_name.name, local_participant_name);
+    
     application->participant =
         DDS_DomainParticipantFactory_create_participant(factory, domain_id,
                 &dp_qos, NULL,
