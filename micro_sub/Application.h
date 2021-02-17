@@ -48,9 +48,9 @@ Application_help(char *appname);
 
 extern struct Application*
 Application_create(const char *local_participant_name,
-const char *remote_participant_name,
-DDS_Long domain_id, char *udp_intf, char *peer, 
-DDS_Long sleep_time, DDS_Long count);
+        const char *remote_participant_name,
+        DDS_Long domain_id, char *udp_intf, char *peer, 
+        DDS_Long sleep_time, DDS_Long count);
 
 extern DDS_ReturnCode_t
 Application_enable(struct Application *application);

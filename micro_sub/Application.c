@@ -29,27 +29,27 @@ Application_help(char *appname)
 
 struct Application *
 Application_create(const char *local_participant_name,
-const char *remote_participant_name,
-DDS_Long domain_id, char *udp_intf, char *peer,
-DDS_Long sleep_time, DDS_Long count)
+        const char *remote_participant_name,
+        DDS_Long domain_id, char *udp_intf, char *peer,
+        DDS_Long sleep_time, DDS_Long count)
 {
     DDS_ReturnCode_t retcode;
     DDS_DomainParticipantFactory *factory = NULL;
     struct DDS_DomainParticipantFactoryQos dpf_qos =
-    DDS_DomainParticipantFactoryQos_INITIALIZER;
+        DDS_DomainParticipantFactoryQos_INITIALIZER;
     struct DDS_DomainParticipantQos dp_qos =
-    DDS_DomainParticipantQos_INITIALIZER;
+        DDS_DomainParticipantQos_INITIALIZER;
     DDS_Boolean success = DDS_BOOLEAN_FALSE;
     struct Application *application = NULL;
     RT_Registry_T *registry = NULL;
     struct UDP_InterfaceFactoryProperty *udp_property = NULL;
 
     struct DPDE_DiscoveryPluginProperty discovery_plugin_properties =
-    DPDE_DiscoveryPluginProperty_INITIALIZER;
+        DPDE_DiscoveryPluginProperty_INITIALIZER;
 
     /* Uncomment to increase verbosity level:
-    OSAPI_Log_set_verbosity(OSAPI_LOG_VERBOSITY_WARNING);
-    */
+       OSAPI_Log_set_verbosity(OSAPI_LOG_VERBOSITY_WARNING);
+       */
     application = (struct Application *)malloc(sizeof(struct Application));
 
     if (application == NULL)
@@ -64,18 +64,18 @@ DDS_Long sleep_time, DDS_Long count)
     factory = DDS_DomainParticipantFactory_get_instance();
 
     registry =
-    DDS_DomainParticipantFactory_get_registry
-    (DDS_DomainParticipantFactory_get_instance());
+        DDS_DomainParticipantFactory_get_registry
+        (DDS_DomainParticipantFactory_get_instance());
 
     if (!RT_Registry_register(registry, DDSHST_WRITER_DEFAULT_HISTORY_NAME,
-    WHSM_HistoryFactory_get_interface(), NULL, NULL))
+                WHSM_HistoryFactory_get_interface(), NULL, NULL))
     {
         printf("failed to register wh\n");
         goto done;
     }
 
     if (!RT_Registry_register(registry, DDSHST_READER_DEFAULT_HISTORY_NAME,
-    RHSM_HistoryFactory_get_interface(), NULL, NULL))
+                RHSM_HistoryFactory_get_interface(), NULL, NULL))
     {
         printf("failed to register rh\n");
         goto done;
@@ -89,7 +89,7 @@ DDS_Long sleep_time, DDS_Long count)
     }
 
     udp_property = (struct UDP_InterfaceFactoryProperty *)
-    malloc(sizeof(struct UDP_InterfaceFactoryProperty));
+        malloc(sizeof(struct UDP_InterfaceFactoryProperty));
     if (udp_property == NULL)
     {
         printf("failed to allocate udp properties\n");
@@ -98,8 +98,8 @@ DDS_Long sleep_time, DDS_Long count)
     *udp_property = UDP_INTERFACE_FACTORY_PROPERTY_DEFAULT;
 
     /* For additional allowed interface(s), increase maximum and length, and
-    set interface below:
-    */
+       set interface below:
+       */
     if (!REDA_StringSeq_set_maximum(&udp_property->allow_interface,2))
     {
         printf("failed to set allow_interface maximum\n");
@@ -112,51 +112,51 @@ DDS_Long sleep_time, DDS_Long count)
     }
 
     /* loopback interface */
-    #if defined(RTI_DARWIN)
+#if defined(RTI_DARWIN)
     *REDA_StringSeq_get_reference(&udp_property->allow_interface,0) = 
-    DDS_String_dup("lo0");
-    #elif defined (RTI_LINUX)
+        DDS_String_dup("lo0");
+#elif defined (RTI_LINUX)
     *REDA_StringSeq_get_reference(&udp_property->allow_interface,0) = 
-    DDS_String_dup("lo");
-    #elif defined (RTI_VXWORKS)
+        DDS_String_dup("lo");
+#elif defined (RTI_VXWORKS)
     *REDA_StringSeq_get_reference(&udp_property->allow_interface,0) = 
-    DDS_String_dup("lo0");
-    #elif defined(RTI_WIN32)
+        DDS_String_dup("lo0");
+#elif defined(RTI_WIN32)
     *REDA_StringSeq_get_reference(&udp_property->allow_interface,0) = 
-    DDS_String_dup("Loopback Pseudo-Interface 1");
-    #else
+        DDS_String_dup("Loopback Pseudo-Interface 1");
+#else
     *REDA_StringSeq_get_reference(&udp_property->allow_interface,0) = 
-    DDS_String_dup("lo");
-    #endif
+        DDS_String_dup("lo");
+#endif
 
     if (udp_intf != NULL)
     { /* use interface supplied on command line */
         *REDA_StringSeq_get_reference(&udp_property->allow_interface,1) = 
-        DDS_String_dup(udp_intf);
+            DDS_String_dup(udp_intf);
     } 
     else                /* use hardcoded interface */
     {
-        #if defined(RTI_DARWIN)
+#if defined(RTI_DARWIN)
         *REDA_StringSeq_get_reference(&udp_property->allow_interface,1) = 
-        DDS_String_dup("en1");
-        #elif defined (RTI_LINUX)
+            DDS_String_dup("en1");
+#elif defined (RTI_LINUX)
         *REDA_StringSeq_get_reference(&udp_property->allow_interface,1) = 
-        DDS_String_dup("eth0");
-        #elif defined (RTI_VXWORKS)
+            DDS_String_dup("eth0");
+#elif defined (RTI_VXWORKS)
         *REDA_StringSeq_get_reference(&udp_property->allow_interface,1) = 
-        DDS_String_dup("geisc0");
-        #elif defined(RTI_WIN32)
+            DDS_String_dup("geisc0");
+#elif defined(RTI_WIN32)
         *REDA_StringSeq_get_reference(&udp_property->allow_interface,1) = 
-        DDS_String_dup("Local Area Connection");
-        #else
+            DDS_String_dup("Local Area Connection");
+#else
         *REDA_StringSeq_get_reference(&udp_property->allow_interface,1) = 
-        DDS_String_dup("ce0");
-        #endif
+            DDS_String_dup("ce0");
+#endif
     }
 
     if (!RT_Registry_register(registry, NETIO_DEFAULT_UDP_NAME,
-    UDP_InterfaceFactory_get_interface(),
-    (struct RT_ComponentFactoryProperty*)udp_property, NULL))
+                UDP_InterfaceFactory_get_interface(),
+                (struct RT_ComponentFactoryProperty*)udp_property, NULL))
     {
         printf("failed to register udp\n");
         goto done;
@@ -172,10 +172,10 @@ DDS_Long sleep_time, DDS_Long count)
     }
 
     if (!RT_Registry_register(registry,
-    "dpde",
-    DPDE_DiscoveryFactory_get_interface(),
-    &discovery_plugin_properties._parent, 
-    NULL))
+                "dpde",
+                DPDE_DiscoveryFactory_get_interface(),
+                &discovery_plugin_properties._parent, 
+                NULL))
     {
         printf("failed to register dpde\n");
         goto done;
@@ -211,9 +211,9 @@ DDS_Long sleep_time, DDS_Long count)
     dp_qos.resource_limits.remote_writer_allocation = 8;
 
     application->participant =
-    DDS_DomainParticipantFactory_create_participant(factory, domain_id,
-    &dp_qos, NULL,
-    DDS_STATUS_MASK_NONE);
+        DDS_DomainParticipantFactory_create_participant(factory, domain_id,
+                &dp_qos, NULL,
+                DDS_STATUS_MASK_NONE);
 
     if (application->participant == NULL)
     {
@@ -223,8 +223,8 @@ DDS_Long sleep_time, DDS_Long count)
 
     sprintf(application->type_name, dds_Drive_bus_registered_type_Camera);
     retcode = DDS_DomainParticipant_register_type(application->participant,
-    application->type_name,
-    dds_sensing_CameraTypePlugin_get());
+            application->type_name,
+            dds_sensing_CameraTypePlugin_get());
     if (retcode != DDS_RETCODE_OK)
     {
         printf("failed to register type: %s\n", "test_type");
@@ -233,11 +233,11 @@ DDS_Long sleep_time, DDS_Long count)
 
     sprintf(application->topic_name, dds_Drive_bus_topic_Camera );
     application->topic =
-    DDS_DomainParticipant_create_topic(application->participant,
-    application->topic_name,
-    application->type_name,
-    &DDS_TOPIC_QOS_DEFAULT, NULL,
-    DDS_STATUS_MASK_NONE);
+        DDS_DomainParticipant_create_topic(application->participant,
+                application->topic_name,
+                application->type_name,
+                &DDS_TOPIC_QOS_DEFAULT, NULL,
+                DDS_STATUS_MASK_NONE);
 
     if (application->topic == NULL)
     {
@@ -247,7 +247,7 @@ DDS_Long sleep_time, DDS_Long count)
 
     success = DDS_BOOLEAN_TRUE;
 
-    done:
+done:
     DDS_DomainParticipantQos_finalize(&dp_qos);
 
     if (!success)
@@ -295,8 +295,8 @@ Application_delete(struct Application *application)
     }
 
     retcode =
-    DDS_DomainParticipantFactory_delete_participant
-    (DDS_DomainParticipantFactory_get_instance(), application->participant);
+        DDS_DomainParticipantFactory_delete_participant
+        (DDS_DomainParticipantFactory_get_instance(), application->participant);
     if (retcode != DDS_RETCODE_OK)
     {
         printf("failed to delete participant: %d\n", retcode);
@@ -304,11 +304,11 @@ Application_delete(struct Application *application)
     }
 
     registry = DDS_DomainParticipantFactory_get_registry
-    (DDS_DomainParticipantFactory_get_instance());
+        (DDS_DomainParticipantFactory_get_instance());
 
     if (!RT_Registry_unregister(registry, NETIO_DEFAULT_UDP_NAME,
-    (struct RT_ComponentFactoryProperty**)&udp_property, 
-    NULL))
+                (struct RT_ComponentFactoryProperty**)&udp_property, 
+                NULL))
     {
         printf("failed to unregister udp\n");
         return;
