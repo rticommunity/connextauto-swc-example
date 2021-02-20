@@ -23,26 +23,25 @@ The example consists of the following applications
 - A subscriber that uses *micro* or *micro2* on the same topic
 
 
+# Building the applications
 
-# Building the example applications
-
-The executables are built as part of a top-level build. 
-Please refer to the top-level [README](../../README.md).
+Please refer to the *top-level* project [README](../README.md)
 
 
 # Running the example applications
 
+
 - Pro: 
         
-        ./build/pro/x64Darwin17clang9.0/Debug/pro_publisher
+        build/pro/x64Darwin17clang9.0/Debug/pro_publisher
 
 - Micro: 
         
-        ./build/micro/x64Darwin17clang9.0/Debug/micro_subscriber
+        build/micro/x64Darwin17clang9.0/Debug/micro_subscriber
 
 - Micro2: 
         
-        ./build/micro2/x64Darwin17clang9.0/Debug/micro_subscriber
+        build/micro2/x64Darwin17clang9.0/Debug/micro_subscriber
 
 
 # Observing the example applications using RTI Tools
