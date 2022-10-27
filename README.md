@@ -95,19 +95,13 @@ Press ^C to terminate the apps.
 
 # Observing the dataflows using RTI Tools
 
-Start *RTI Admin Console*. You should see the pub;isher and subscriber applications.
+- Start *RTI Admin Console*. You should see the pub;isher and subscriber applications.
 
-Start *rtiddsspy*. You should be able to subscribe to the data from the publisher.
+- Start *rtiddsspy*. You should be able to subscribe to the data from the publisher.
 
 ---
-(c) Copyright, Real-Time Innovations, 2020.  All rights reserved.
-RTI grants Licensee a license to use, modify, compile, and create derivative
-works of the software solely for use with RTI Connext DDS. Licensee may
-redistribute copies of the software provided that all such copies are subject
-to this license. The software is provided "as is", with no warranty of any
-type, including any warranty for fitness for any purpose. RTI is under no
-obligation to maintain or support the software. RTI shall not be liable for
-any incidental or consequential damages arising out of the use or inability
-to use the software.
+(C) Copyright 2020-2022 Real-Time Innovations, Inc.  All rights reserved.
 
+The use of this software is governed by the terms specified in the RTI Labs License Agreement, available at https://www.rti.com/terms/RTILabs. 
 
+By accessing, downloading, or otherwise using this software, you agree to be bound by those terms.
