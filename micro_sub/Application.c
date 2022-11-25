@@ -16,7 +16,7 @@ be bound by those terms.
 
 #include "rti_me_c.h"
 #include "disc_dpde/disc_dpde_discovery_plugin.h"
-#include "res/types/services/Drive_bus_t.h"
+#include "res/types/services/Drive_t.h"
 #include "res/types/data/sensing/Camera_tPlugin.h"
 #include "wh_sm/wh_sm_history.h"
 #include "rh_sm/rh_sm_history.h"
@@ -232,7 +232,7 @@ Application_create(const char *local_participant_name,
         goto done;
     }
 
-    sprintf(application->type_name, dds_Drive_bus_registered_type_Camera);
+    sprintf(application->type_name, dds_Drive_Bus_main_registered_type_Camera);
     retcode = DDS_DomainParticipant_register_type(application->participant,
             application->type_name,
             dds_sensing_CameraTypePlugin_get());
@@ -242,7 +242,7 @@ Application_create(const char *local_participant_name,
         goto done;
     }
 
-    sprintf(application->topic_name, dds_Drive_bus_topic_Camera );
+    sprintf(application->topic_name, dds_Drive_Bus_main_topic_Camera );
     application->topic =
         DDS_DomainParticipant_create_topic(application->participant,
                 application->topic_name,

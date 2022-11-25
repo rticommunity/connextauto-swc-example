@@ -37,7 +37,7 @@ add and remove them dynamically from the domain.
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "res/types/services/Drive_bus_t.h"
+#include "res/types/services/Drive_t.h"
 #include "res/types/data/sensing/Camera_t.h"
 #include "res/types/data/sensing/Camera_tSupport.h"
 #include "ndds/ndds_cpp.h"
@@ -115,7 +115,7 @@ extern "C" int publisher_main(int domainId, int sample_count)
     }
 
     /* Register type before creating topic */
-    type_name = dds::Drive_bus::registered_type::Camera;
+    type_name = dds::Drive::Bus::main::registered_type::Camera;
     retcode = dds::sensing::CameraTypeSupport::register_type(
         participant, type_name);
     if (retcode != DDS_RETCODE_OK) {
@@ -127,7 +127,7 @@ extern "C" int publisher_main(int domainId, int sample_count)
     /* To customize topic QoS, use
     the configuration file USER_QOS_PROFILES.xml */
     topic = participant->create_topic(
-            dds::Drive_bus::topic::Camera,
+            dds::Drive::Bus::main::topic::Camera,
         type_name, DDS_TOPIC_QOS_DEFAULT, NULL /* listener */,
         DDS_STATUS_MASK_NONE);
     if (topic == NULL) {

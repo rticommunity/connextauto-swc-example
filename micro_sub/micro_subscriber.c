@@ -241,7 +241,8 @@ subscriber_main_w_args(DDS_Long domain_id, char *udp_intf, char *peer,
     struct Application *application;
 
     application = Application_create(
-            "Example_micro_subscriber", "Example_publisher",
+            "Example : Camera (micro)", 
+            "Example : Camera",
             domain_id, udp_intf, peer, sleep_time, count);
 
     if (application == NULL)
