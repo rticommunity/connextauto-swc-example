@@ -1,4 +1,8 @@
-# Example - Release Notes
+# Release Notes
+
+# v0.2
+
+- Update for constant name changes in the upstream databus repo
 
 # v0.1
 
