@@ -3,7 +3,7 @@
 This repo uses the common data model, interfaces, build system, and component
 launcher provided by the standalone **databus** project repo.
 
-It's primary purpose to exercise and illustrate how to build  components (i.e. 
+It's primary purpose to exercise and illustrate how to build  components (i.e.
 applications) for various RTI Connext SDKs using a single `CMakeLists.txt` file.
 
 - RTI Connext DDS Professional (*pro*)
@@ -17,6 +17,7 @@ The example consists of the following applications
 ## Assumptions
 
 - `$DATABUSHOME` refers to the location of the **databus** project repository
+- `$RTI_ARCH` refers to your project **architecture**
 
 ## Files Overview
 
@@ -44,11 +45,11 @@ From this git repo's top-level directory:
 
 - To generate the build system for *RTI Connext DDS Professional*, e.g.
 
-      $DATABUSHOME/bin/build-gen.sh pro x64Linux4gcc7.3.0 Debug
+      $DATABUSHOME/bin/build-gen.sh pro ${RTI_ARCH} Debug
 
 - To generate the build system for *RTI Connext DDS Micro*, e.g.
 
-      $DATABUSHOME/bin/build-gen.sh micro x64Linux4gcc7.3.0 Release
+      $DATABUSHOME/bin/build-gen.sh micro ${RTI_ARCH} Release
 
 This step creates a `build/` directory in the project top-level directory. The `build/` directory contains a shell script to build for the specified target platform and build kind.
 
@@ -60,11 +61,11 @@ From this git repo's top-level directory, run the generated build script to buil
 
 - To build for *RTI Connext DDS Professional*, e.g.:
 
-      ./build/pro-x64Linux4gcc7.3.0-Debug.sh
+      ./build/pro-${RTI_ARCH}-Debug.sh
 
 - To build for *RTI Connext DDS Micro*, e.g.:
 
-      ./build/micro-x64Linux4gcc7.3.0-Release.sh
+      ./build/micro-${RTI_ARCH}-Release.sh
 
 
 
@@ -74,9 +75,9 @@ This repo uses the *common component launcher* provided by the databus project r
 
 Open two terminal windows...
 
-- Launch the `pro_publisher` in terminal #1 
+- Launch the `pro_publisher` in terminal #1
 
-      $DATABUSHOME/bin/run Drive build/pro/x64Linux4gcc7.3.0/Debug/pro_publisher [domain_id] [sample_count]
+      $DATABUSHOME/bin/run Drive build/pro/${RTI_ARCH}/Debug/pro_publisher [domain_id] [sample_count]
 
    You should see output like:
 
@@ -88,7 +89,7 @@ Open two terminal windows...
 
 - Launch the `micro_subscriber` in terminal #2
 
-      $DATABUSHOME/bin/run Drive build/micro/x64Linux4gcc7.3.0/Release/micro_subscriber [-domain <id>]
+      $DATABUSHOME/bin/run Drive build/micro/${RTI_ARCH}/Release/micro_subscriber [-domain <id>]
 
    You should see output like:
 
@@ -98,14 +99,14 @@ Open two terminal windows...
         Valid sample received
 
         Valid sample received
-        
+
         :
-        
+
 Press ^C in a terminal window to terminate.
 
 ---
 (C) Copyright 2020-2022 Real-Time Innovations, Inc.  All rights reserved.
 
-The use of this software is governed by the terms specified in the RTI Labs License Agreement, available at https://www.rti.com/terms/RTILabs. 
+The use of this software is governed by the terms specified in the RTI Labs License Agreement, available at https://www.rti.com/terms/RTILabs.
 
 By accessing, downloading, or otherwise using this software, you agree to be bound by those terms.
